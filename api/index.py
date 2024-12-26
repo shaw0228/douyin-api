@@ -5,11 +5,11 @@ import os
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("/api")
 async def root():
     return {"status": "ok", "message": "API is running"}
 
-@app.get("/test")
+@app.get("/api/test")
 async def test():
     cookie = os.getenv('DOUYIN_COOKIE')
     return {
@@ -18,7 +18,7 @@ async def test():
         "cookie_length": len(cookie) if cookie else 0
     }
 
-@app.get("/douyin/{user_id}")
+@app.get("/api/douyin/{user_id}")
 async def get_douyin_data(user_id: str):
     try:
         url = 'https://www.douyin.com/aweme/v1/web/aweme/post/'
@@ -54,6 +54,6 @@ async def get_douyin_data(user_id: str):
             content={"error": str(e)}
         )
 
-@app.api_route("/{path_name:path}", methods=["GET"])
+@app.api_route("/api/{path_name:path}", methods=["GET"])
 async def catch_all(path_name: str):
-    return {"status": "error", "message": f"Path {path_name} not found"} 
+    return {"status": "error", "message": f"Path /api/{path_name} not found"} 
