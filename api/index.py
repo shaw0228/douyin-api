@@ -5,11 +5,11 @@ import os
 
 app = FastAPI()
 
-@app.get("/api")
+@app.get("/")
 async def root():
     return {"status": "ok", "message": "API is running"}
 
-@app.get("/api/test")
+@app.get("/test")
 async def test():
     cookie = os.getenv('DOUYIN_COOKIE')
     return {
@@ -18,7 +18,7 @@ async def test():
         "cookie_length": len(cookie) if cookie else 0
     }
 
-@app.get("/api/douyin/{user_id}")
+@app.get("/douyin/{user_id}")
 async def get_douyin_data(user_id: str):
     try:
         url = 'https://www.douyin.com/aweme/v1/web/aweme/post/'
